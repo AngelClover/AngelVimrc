@@ -1,0 +1,135 @@
+snippet #!
+	#!/usr/bin/python
+
+snippet P2
+	class P2(object):
+		"""require math.sqrt"""
+		def __init__(s, a, b): s.x, s.y = a, b
+		def __abs__ (s) : return math.sqrt(s.x**2 + s.y ** 2) 
+		def __add__ (a, b): return point_t(a.x + b.x, a.y + b.y)
+		def __sub__ (a, b): return point_t(a.x - b.x, a.y - b.y)
+		def __mul__(a, b): return a.x * b.x + a.y * b.y #dot mul
+		def __xor__(a, b): return a.x * b.y - a.y * b.x #cross mul
+		def __str__ (s): return str(s.x) + " " + str(s.y) 
+		def scale(s, fac): return P2(s.x * fac, s.y * fac) 
+		def unit(s): return s.scale(1 / abs(s))
+
+snippet gcd
+	def gcd(a, b):
+		if (b == 0): return a
+		return gcd(b, a % b)
+
+snippet primes2
+	primes = [int(i) for i in
+	open("../primes.txt", "r").read().strip("\n").split("\n")]
+	pn = len(primes)
+snippet primes
+	pn = ${1:1000000}
+	primes = []
+	phy = [0 for i in range(pn)]
+	is_prime = [True for i in range(pn)]
+	is_prime[0] = False
+	is_prime[1] = False
+	for i in range(2, pn):
+		if is_prime[i]: 
+			primes.append(i)
+			phy[i] = i - 1
+		for j in primes:
+			if i * j >= pn: break
+			is_prime[i * j] = False
+			if i % j == 0:
+				phy[i * j] = phy[i] * j
+				break
+			else :
+				phy[i * j] = phy[i] * (j - 1)
+
+	def isPrime(x):
+		if x < pn: return is_prime[x]
+		for i in primes:
+			if x % i == 0: return False
+			if i * i > x: break
+		return True
+	${2:}
+
+snippet import
+	import ${1:}
+# Module Docstring
+snippet docs
+	'''
+	File: ${1:`Filename('$1.py', 'foo.py')`}
+	Author: ${2:`g:snips_author`}
+	Description: ${3}
+	'''
+snippet while
+	while ${1:}:
+		${2:}
+snippet for
+	for ${1:} in ${2:}:
+		${3:}
+# New Class
+snippet class
+	class ${1:ClassName}(${2:object}):
+		"""${3:docstring for $1}"""
+		def __init__(self, ${4:arg}):
+			${5:super($1, self).__init__()}
+			self.$4 = $4
+			${6}
+# New Function
+snippet def
+	def ${1:}(${2:}):
+		${3:}
+snippet deff
+	def ${1:fname}(${2:`indent('.') ? 'self' : ''`}):
+		${3}
+# New Method
+snippet defs
+	def ${1:mname}(self, ${2:arg}):
+		${3:pass}
+# New Property
+snippet property
+	def ${1:foo}():
+		doc = "${2:The $1 property.}"
+		def fget(self):
+			${3:return self._$1}
+		def fset(self, value):
+			${4:self._$1 = value}
+# Lambda
+snippet lambda
+	${1:var} = lambda ${2:vars} : ${3:action}
+snippet .
+	self.
+snippet try Try/Except
+	try:
+		${1:pass}
+	except ${2:Exception}, ${3:e}:
+		${4:raise $3}
+snippet try Try/Except/Else
+	try:
+		${1:pass}
+	except ${2:Exception}, ${3:e}:
+		${4:raise $3}
+	else:
+		${5:pass}
+snippet try Try/Except/Finally
+	try:
+		${1:pass}
+	except ${2:Exception}, ${3:e}:
+		${4:raise $3}
+	finally:
+		${5:pass}
+snippet try Try/Except/Else/Finally
+	try:
+		${1:pass}
+	except ${2:Exception}, ${3:e}:
+		${4:raise $3}
+	else:
+		${5:pass}
+	finally:
+		${6:pass}
+# if __name__ == '__main__':
+snippet ifmain
+	if __name__ == '__main__':
+		${1:main()}
+# __magic__
+snippet _
+	__${1:init}__${2}

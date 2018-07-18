@@ -1,0 +1,22 @@
+#vimrc
+
+vimrc for Angel
+
+
+##how to work
+
+1. make soft link
+
+    ln -s .vimrc ~/.vimrc
+    ln -s .vim ~/,vim
+    git clone https://github.com/VundleVim/Vundle.vim.git .vim/bundle/Vundle.vim
+
+2. Vundle plugin install
+open vim, if step.1 is correct, Vundle is right installed.
+run next in VIM
+
+    :PluginInstall
+
+3. YouComplateMe
+if step.2 is executed, plungins will correct installed but youcompleteme.
+this plugin need mannually compile.
